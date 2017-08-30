@@ -150,10 +150,12 @@
         "Comment": "Application ELB DNS Name",
         "TTL": "3600",
         "Type": "A",
-        "AliasTarget": {
-          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
-          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
-        }
+        "ResourceRecords": [
+          "AliasTarget": {
+            "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
+            "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
+          }
+        ]
       }
     },
 
@@ -195,10 +197,12 @@
         "Comment":"CF SSH ELB DNS Name",
         "TTL": "3600",
         "Type": "A",
-        "AliasTarget": {
-          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } },
-          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } }
-        }
+        "ResourceRecords": [
+          "AliasTarget": {
+            "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } },
+            "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } }
+          }
+        ]
       }
     },
 
@@ -223,10 +227,12 @@
         "Comment": "Director ELB DNS Name",
         "TTL": "3600",
         "Type": "A",
-        "AliasTarget": {
-          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } },
-          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } }
-        }
+        "ResourceRecords": [
+          "AliasTarget": {
+            "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } },
+            "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } }
+          }
+        ]
       }
     },
 
