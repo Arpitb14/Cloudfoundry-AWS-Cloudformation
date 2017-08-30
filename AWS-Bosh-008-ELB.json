@@ -340,11 +340,11 @@
       "Value": { "Ref": "DirectorElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElb" } }
     },
-    "DirectorElbCanonicalHostedZone": {
+    "DirectorElbirectorElbCanonicalHostedZoneName": {
       "Description": "Director External ELB Canonical Hosted Zone Name",
       "Condition": "DeployElb",
       "Value": { "Fn::GetAtt": [ "DirectorElb", "CanonicalHostedZoneName" ] },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneName" } }
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } }
     },
     "DirectorElbCanonicalHostedZoneID": {
       "Description": "Director External ELB Canonical Hosted Zone Name ID",
