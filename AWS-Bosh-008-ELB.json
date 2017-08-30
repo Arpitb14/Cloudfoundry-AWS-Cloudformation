@@ -304,6 +304,12 @@
       "Value": { "Ref": "CfSshElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElb" } }
     },
+    "CfSshElbCanonicalHostedZoneName": {
+      "Description": "Cloudfoundry SSH External ELB Canonical Hosted Zone Name",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "CfSshElb", "CanonicalHostedZoneName" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } }
+    },
     "CfSshElbCanonicalHostedZoneNameID": {
       "Description": "Cloudfoundry SSH External ELB Canonical Hosted Zone Name ID",
       "Condition": "DeployElb",
@@ -333,6 +339,12 @@
       "Condition": "DeployElb",
       "Value": { "Ref": "DirectorElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElb" } }
+    },
+    "DirectorElbCanonicalHostedZone": {
+      "Description": "Director External ELB Canonical Hosted Zone Name",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "DirectorElb", "CanonicalHostedZoneName" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneName" } }
     },
     "DirectorElbCanonicalHostedZoneID": {
       "Description": "Director External ELB Canonical Hosted Zone Name ID",
