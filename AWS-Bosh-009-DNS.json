@@ -23,6 +23,18 @@
       "Description": "Deploy External ELB",
       "AllowedValues": [ "true", "false" ]
     },
+    "CfSshElbScheme": {
+      "Type": "String",
+      "Default": "internet-facing",
+      "Description": "CF SSH ELB: Internet facing or internal load balancer",
+      "AllowedValues": [ "internet-facing", "internal" ]
+    },
+    "DirectorElbScheme": {
+      "Type": "String",
+      "Default": "internet-facing",
+      "Description": "Director ELB: Internet facing or internal load balancer",
+      "AllowedValues": [ "internet-facing", "internal" ]
+    },
     "AllocateLbIp": {
       "Type": "String",
       "Default": "false",
@@ -121,6 +133,8 @@
 
   "Conditions": {
     "DeployElb": { "Fn::Equals": [ { "Ref": "DeployElb" }, "true" ] },
+    "CfSshElbInternal": { "Fn::Equals": [ { "Ref": "CfSshElbScheme" }, "internal" ] },
+    "DirectorElbInternal": { "Fn::Equals": [ { "Ref": "DirectorElbScheme" }, "internal" ] },
 
     "MultiAz": { "Fn::Equals": [ { "Ref": "MultiAz" }, "true" ] },
     "MultiAzAndAllocateLbIp": {
@@ -146,18 +160,13 @@
       "Condition": "DeployElb",
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
-        "Name": { "Fn::Join": [ ".", [ "*.apps", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Comment": "Application ELB DNS Name",
-        "TTL": "3600",
+        "Name": { "Fn::Join": [ ".", [ "*.apps", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Type": "A",
-        "ResourceRecords": [
-          {
-            "AliasTarget": {
-              "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
-              "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
-            }
-          }
-        ]
+        "AliasTarget": {
+          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
+          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
+        }
       }
     },
 
@@ -195,18 +204,19 @@
       "Condition": "DeployElb",
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
-        "Name": { "Fn::Join": [ ".", [ "ssh.system", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Comment":"CF SSH ELB DNS Name",
-        "TTL": "3600",
+        "Name": { "Fn::Join": [ ".", [ "ssh.system", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Type": "A",
-        "ResourceRecords": [
-          {
-            "AliasTarget": {
-              "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } },
-              "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } }
-            }
+        "AliasTarget": {
+          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } },
+          "DNSName": {
+            "Fn::If": [
+              "CfSshElbInternal",
+              { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbDnsName" } },
+              { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } }
+            ]
           }
-        ]
+        }
       }
     },
 
@@ -227,18 +237,19 @@
       "Condition": "DeployElb",
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
-        "Name": { "Fn::Join": [ ".", [ "director", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Comment": "Director ELB DNS Name",
-        "TTL": "3600",
+        "Name": { "Fn::Join": [ ".", [ "director", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Type": "A",
-        "ResourceRecords": [
-          {
-            "AliasTarget": {
-              "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } },
-              "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } }
-            }
+        "AliasTarget": {
+          "HostedZoneId": {"Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } },
+          "DNSName": {
+            "Fn::If": [
+              "DirectorElbInternal",
+              { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbDnsName" } },
+              { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneName" } }
+            ]
           }
-        ]
+        }
       }
     },
 
@@ -320,10 +331,9 @@
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
         "Name": { "Fn::Join": [ ".", [ "*.system", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "Comment": "System ELB DNS Name",
-        "TTL": "3600",
         "Type": "A",
         "AliasTarget": {
-          "DNSName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } }, "." ] ] },
+          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
           "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
         }
       }

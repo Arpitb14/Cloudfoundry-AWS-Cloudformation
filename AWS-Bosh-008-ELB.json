@@ -304,17 +304,17 @@
       "Value": { "Ref": "CfSshElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElb" } }
     },
-    "CfSshElbCanonicalHostedZoneName": {
-      "Description": "Cloudfoundry SSH External ELB Canonical Hosted Zone Name",
-      "Condition": "DeployElb",
-      "Value": { "Fn::GetAtt": [ "CfSshElb", "CanonicalHostedZoneName" ] },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } }
-    },
     "CfSshElbCanonicalHostedZoneNameID": {
       "Description": "Cloudfoundry SSH External ELB Canonical Hosted Zone Name ID",
       "Condition": "DeployElb",
       "Value": { "Fn::GetAtt": [ "CfSshElb", "CanonicalHostedZoneNameID" ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } }
+    },
+    "CfSshElbCanonicalHostedZoneName": {
+      "Description": "Cloudfoundry SSH ELB DNS Canonical Hosted Zone Name",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "CfSshElb","CanonicalHostedZoneName" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } }
     },
     "CfSshElbDnsName": {
       "Description": "Cloudfoundry SSH ELB DNS Name",
@@ -340,17 +340,17 @@
       "Value": { "Ref": "DirectorElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElb" } }
     },
-    "DirectorElbirectorElbCanonicalHostedZoneName": {
-      "Description": "Director External ELB Canonical Hosted Zone Name",
-      "Condition": "DeployElb",
-      "Value": { "Fn::GetAtt": [ "DirectorElb", "CanonicalHostedZoneName" ] },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } }
-    },
     "DirectorElbCanonicalHostedZoneID": {
       "Description": "Director External ELB Canonical Hosted Zone Name ID",
       "Condition": "DeployElb",
       "Value": { "Fn::GetAtt": [ "DirectorElb", "CanonicalHostedZoneNameID" ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } }
+    },
+    "DirectorElbCanonicalHostedZoneName": {
+      "Description": "Director ELB Canonical Hosted Zone DNS Name",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "DirectorElb","DNSName" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneName" } }
     },
     "DirectorElbDnsName": {
       "Description": "Director ELB DNS Name",
