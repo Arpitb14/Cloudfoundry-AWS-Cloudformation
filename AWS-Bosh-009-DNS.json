@@ -151,9 +151,11 @@
         "TTL": "3600",
         "Type": "A",
         "ResourceRecords": [
-          "AliasTarget": {
-            "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
-            "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
+          {
+            "AliasTarget": {
+              "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
+              "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
+            }
           }
         ]
       }
@@ -198,9 +200,11 @@
         "TTL": "3600",
         "Type": "A",
         "ResourceRecords": [
-          "AliasTarget": {
-            "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } },
-            "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } }
+          {
+            "AliasTarget": {
+              "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneName" } },
+              "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneNameID" } }
+            }
           }
         ]
       }
@@ -228,9 +232,11 @@
         "TTL": "3600",
         "Type": "A",
         "ResourceRecords": [
-          "AliasTarget": {
-            "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } },
-            "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } }
+          {
+            "AliasTarget": {
+              "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbirectorElbCanonicalHostedZoneName" } },
+              "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneNameID" } }
+            }
           }
         ]
       }
