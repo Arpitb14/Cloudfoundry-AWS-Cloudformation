@@ -52,13 +52,6 @@
       "MinValue": "1",
       "MaxValue": "999"
     },
-    "CfSshElbHealthCheckTimeout": {
-      "Type": "Number",
-      "Default": "20",
-      "Description": "CF SSH ELB Health Check Timeout",
-      "MinValue": "1",
-      "MaxValue": "999"
-    },
     "CfSshElbScheme": {
       "Type": "String",
       "Default": "internet-facing",
@@ -75,13 +68,6 @@
       "Type": "Number",
       "Default": "30",
       "Description": "Director ELB Health Check Interval",
-      "MinValue": "1",
-      "MaxValue": "999"
-    },
-    "DirectorElbHealthCheckTimeout": {
-      "Type": "Number",
-      "Default": "20",
-      "Description": "Director ELB Health Check Timeout",
       "MinValue": "1",
       "MaxValue": "999"
     },
@@ -490,7 +476,6 @@
         "HealthCheckPath": "/",
         "HealthCheckPort": "2223",
         "HealthCheckProtocol": "HTTP",
-        "HealthCheckTimeoutSeconds": { "Ref": "CfSshElbHealthCheckTimeout" },
         "Targets": [],
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
@@ -509,7 +494,6 @@
         "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
         "HealthCheckPort": "22",
         "HealthCheckProtocol": "TCP",
-        "HealthCheckTimeoutSeconds": { "Ref": "DirectorElbHealthCheckTimeout" },
         "Targets": [],
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
@@ -527,7 +511,6 @@
         "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
         "HealthCheckPort": "6868",
         "HealthCheckProtocol": "TCP",
-        "HealthCheckTimeoutSeconds": { "Ref": "DirectorElbHealthCheckTimeout" },
         "Targets": [],
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
@@ -545,7 +528,6 @@
         "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
         "HealthCheckPort": "25555",
         "HealthCheckProtocol": "HTTPS",
-        "HealthCheckTimeoutSeconds": { "Ref": "DirectorElbHealthCheckTimeout" },
         "Targets": [],
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
