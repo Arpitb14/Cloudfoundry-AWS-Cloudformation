@@ -354,7 +354,6 @@
         "LoadBalancerAttributes": [
           { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "DirectorElbTimeout" } }
         ],
-        "SecurityGroups": [ { "Ref": "DirectorElbSecurityGroup" } ],
         "Type": "network",
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElb" } },
