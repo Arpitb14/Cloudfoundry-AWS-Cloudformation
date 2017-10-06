@@ -312,6 +312,7 @@
           { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "ApplicationElbTimeout" } }
         ],
         "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } } ],
+        "Type": "application",
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:ApplicationElb" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
@@ -331,6 +332,7 @@
           { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfSshElbTimeout" } }
         ],
         "SecurityGroups": [ { "Ref": "CfSshElbSecurityGroup" } ],
+        "Type": "network",
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElb" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
@@ -350,6 +352,7 @@
           { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "DirectorElbTimeout" } }
         ],
         "SecurityGroups": [ { "Ref": "DirectorElbSecurityGroup" } ],
+        "Type": "network",
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElb" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
