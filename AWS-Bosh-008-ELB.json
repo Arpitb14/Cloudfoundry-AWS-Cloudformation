@@ -490,7 +490,7 @@
       "Condition": "DeployElb",
       "Properties": {
         "Port": "22",
-        "Protocol": "HTTP",
+        "Protocol": "TCP",
         "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
         "HealthCheckPort": "22",
         "HealthCheckProtocol": "TCP",
