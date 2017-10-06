@@ -153,11 +153,12 @@
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
         "Name": { "Fn::Join": [ ".", [ "*.apps", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
-        "TTL": "3600",
-        "Type": "CNAME",
-        "ResourceRecords": [
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } }
-        ]
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
+          "EvaluateTargetHealth": "true",
+          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
+        }
       }
     },
 
@@ -194,37 +195,40 @@
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
         "Name": { "Fn::Join": [ ".", [ "ssh.system", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
-        "TTL": "3600",
-        "Type": "CNAME",
-        "ResourceRecords": [
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbDnsName" } }
-        ]
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbDnsName" } },
+          "EvaluateTargetHealth": "true",
+          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneID" } }
+        }
       }
     },
 
-    "DirectorDnsRr": {
+    "DirectorIpDnsRr": {
       "Type": "AWS::Route53::RecordSet",
-      "Condition": "DeployElbOrAllocateBoshIp",
+      "Condition": "AllocateBoshIp",
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
         "Name": { "Fn::Join": [ ".", [ "director", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
         "TTL": "3600",
-        "Type": {
-          "Fn::If": [
-            "DeployElb",
-            "CNAME",
-            "A"
-          ]
-        },
+        "Type": "A",
         "ResourceRecords": [
-          {
-            "Fn::If": [
-              "DeployElb",
-              { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbDnsName" } },
-              { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BoshLitePublicIp" } }
-            ]
-          }
+          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BoshLitePublicIp" } }
         ]
+      }
+    },
+    "DirectorElbDnsRr": {
+      "Type": "AWS::Route53::RecordSet",
+      "Condition": "DeployElb",
+      "Properties": {
+        "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
+        "Name": { "Fn::Join": [ ".", [ "director", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbDnsName" } },
+          "EvaluateTargetHealth": "true",
+          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneID" } }
+        }
       }
     },
 
@@ -300,11 +304,12 @@
       "Properties": {
         "HostedZoneName": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }, "." ] ] },
         "Name": { "Fn::Join": [ ".", [ "*.system", { "Ref": "DeploymentName" }, { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } } ] ] },
-        "TTL": "3600",
-        "Type": "CNAME",
-        "ResourceRecords": [
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } }
-        ]
+        "Type": "A",
+        "AliasTarget": {
+          "DNSName": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } },
+          "EvaluateTargetHealth": "true",
+          "HostedZoneId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneID" } }
+        }
       }
     },
     "SystemExternalSingleAzIpDnsRR": {

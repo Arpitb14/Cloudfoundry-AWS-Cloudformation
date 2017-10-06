@@ -121,6 +121,12 @@
       "Value": { "Ref": "ApplicationElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElb" } }
     },
+    "ApplicationElbCanonicalHostedZoneId": {
+      "Description": "Application ELB Canonical Hosted Zone ID",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "ApplicationElb","CanonicalHostedZoneID" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElbCanonicalHostedZoneId" } }
+    },
     "ApplicationElbDnsName": {
       "Description": "Application ELB DNS Name",
       "Condition": "DeployElb",
@@ -158,6 +164,12 @@
       "Value": { "Ref": "CfSshElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElb" } }
     },
+    "CfSshElbCanonicalHostedZoneId": {
+      "Description": "CF SSH ELB Canonical Hosted Zone ID",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "CfSshElb","CanonicalHostedZoneID" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbCanonicalHostedZoneId" } }
+    },
     "CfSshElbDnsName": {
       "Description": "CF SSH ELB DNS Name",
       "Condition": "DeployElb",
@@ -182,6 +194,12 @@
       "Condition": "DeployElb",
       "Value": { "Ref": "DirectorElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElb" } }
+    },
+    "DirectorElbCanonicalHostedZoneId": {
+      "Description": "Director ELB Canonical Hosted Zone ID",
+      "Condition": "DeployElb",
+      "Value": { "Fn::GetAtt": [ "DirectorElb","CanonicalHostedZoneID" ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbCanonicalHostedZoneId" } }
     },
     "DirectorElbDnsName": {
       "Description": "Director ELB DNS Name",
@@ -317,7 +335,6 @@
         "LoadBalancerAttributes": [
           { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfSshElbTimeout" } }
         ],
-        "SecurityGroups": [ { "Ref": "CfSshElbSecurityGroup" } ],
         "Type": "network",
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElb" } },
@@ -538,38 +555,24 @@
     },
 
 
-    "CfSshElbSecurityGroup": {
+    "CfSshSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
-      "Condition": "DeployElb",
       "Properties": {
-        "GroupDescription": "CF SSH ELB Security Group",
+        "GroupDescription": "CF SSH Security Group",
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElbSecurityGroup" } },
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshSecurityGroup" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
         ]
       }
     },
-    "CfSshInstanceSecurityGroup": {
+    "DirectorSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
-      "Condition": "DeployElb",
       "Properties": {
-        "GroupDescription": "CF SSH Instance Security Group",
+        "GroupDescription": "Director Security Group",
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshInstanceSecurityGroup" } },
-          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ]
-      }
-    },
-    "DirectorElbSecurityGroup": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Condition": "DeployElb",
-      "Properties": {
-        "GroupDescription": "Director ELB Security Group",
-        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
-        "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElbSecurityGroup" } },
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorSecurityGroup" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
         ] 
       } 

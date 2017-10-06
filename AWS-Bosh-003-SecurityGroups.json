@@ -10,26 +10,19 @@
       "MaxLength": "16",
       "AllowedPattern": "^([A-Za-z0-9]+[A-Za-z0-9-]?)+[A-Za-z0-9]$",
       "ConstraintDescription": "Must be a valid domain label matching /^([A-Za-z0-9]+[A-Za-z0-9-])+[A-Za-z0-9]$/"
-    },
-    "MultiAz": {
-      "Type": "String",
-      "Default": "true",
-      "Description": "Deploy multiple AZs",
-      "AllowedValues": [ "true", "false" ]
-    },
-    "DeployElb": {
-      "Type": "String",
-      "Default": "true",
-      "Description": "Deploy External ELB",
-      "AllowedValues": [ "true", "false" ]
     }
   },
 
   "Outputs": {
-    "DirectorInstanceSecurityGroup": {
-      "Description": "Director Instance Security Group",
-      "Value": { "Ref": "DirectorInstanceSecurityGroup" },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorInstanceSecurityGroup" } }
+    "CfSecurityGroup": {
+      "Description": "Cf Security Group",
+      "Value": { "Ref": "CfSecurityGroup" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSecurityGroup" } }
+    },
+    "DirectorSecurityGroup": {
+      "Description": "Director Security Group",
+      "Value": { "Ref": "DirectorSecurityGroup" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } }
     },
     "DmzSecurityGroup": {
       "Description": "DMZ Security Groups",
@@ -58,27 +51,30 @@
     }
   },
 
-  "Conditions": {
-    "DeployElb": { "Fn::Equals": [ { "Ref": "DeployElb" }, "true" ] },
-    "MultiAzOrElb": {
-      "Fn::Or": [
-        { "Fn::Equals": [ { "Ref": "MultiAz" }, "true" ] },
-        { "Fn::Equals": [ { "Ref": "DeployElb" }, "true" ] }
-      ]
-    }
-  },
+  "Conditions": {},
 
   "Resources": {
-    "DirectorInstanceSecurityGroup": {
+    "CfSshSecurityGroup": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "CF SSH Security Group",
+        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshSecurityGroup" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
+      }
+    },
+    "DirectorSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
       "Properties": {
         "GroupDescription": "Director Security Group",
         "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
         "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorInstanceSecurityGroup" } },
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorSecurityGroup" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ]
-      }
+        ] 
+      } 
     },
     "DmzSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
