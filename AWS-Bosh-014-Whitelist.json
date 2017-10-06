@@ -177,8 +177,8 @@
       "Condition": "PermitFullAccessCidr1",
       "Properties": {
         "Parameters": {
-          "CfSshSecurityGroup": { "Ref": "CfSshSecurityGroup" },
-          "DirectorSecurityGroup": { "Ref": "DirectorSecurityGroup" },
+          "CfSshSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
+          "DirectorSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } },
           "LbSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } },
           "WhitelistedCidr": { "Ref": "FullAccessCidr1" }
         },
@@ -200,8 +200,8 @@
       "Condition": "PermitFullAccessCidr2",
       "Properties": {
         "Parameters": {
-          "CfSshSecurityGroup": { "Ref": "CfSshSecurityGroup" },
-          "DirectorSecurityGroup": { "Ref": "DirectorSecurityGroup" },
+          "CfSshSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
+          "DirectorSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } },
           "LbSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } },
           "WhitelistedCidr": { "Ref": "FullAccessCidr2" }
         },
@@ -223,8 +223,8 @@
       "Condition": "PermitFullAccessCidr3",
       "Properties": {
         "Parameters": {
-          "CfSshSecurityGroup": { "Ref": "CfSshSecurityGroup" },
-          "DirectorSecurityGroup": { "Ref": "DirectorSecurityGroup" },
+          "CfSshSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
+          "DirectorSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } },
           "LbSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } },
           "WhitelistedCidr": { "Ref": "FullAccessCidr3" }
         },
@@ -246,8 +246,8 @@
       "Condition": "PermitFullAccessCidr4",
       "Properties": {
         "Parameters": {
-          "CfSshSecurityGroup": { "Ref": "CfSshSecurityGroup" },
-          "DirectorSecurityGroup": { "Ref": "DirectorSecurityGroup" },
+          "CfSshSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
+          "DirectorSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } },
           "LbSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } },
           "WhitelistedCidr": { "Ref": "FullAccessCidr4" }
         },
@@ -269,8 +269,8 @@
       "Condition": "PermitFullAccessCidr5",
       "Properties": {
         "Parameters": {
-          "CfSshSecurityGroup": { "Ref": "CfSshSecurityGroup" },
-          "DirectorSecurityGroup": { "Ref": "DirectorSecurityGroup" },
+          "CfSshSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
+          "DirectorSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } },
           "LbSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } },
           "WhitelistedCidr": { "Ref": "FullAccessCidr5" }
         },
@@ -292,8 +292,8 @@
       "Condition": "PermitFullAccessCidr6",
       "Properties": {
         "Parameters": {
-          "CfSshSecurityGroup": { "Ref": "CfSshSecurityGroup" },
-          "DirectorSecurityGroup": { "Ref": "DirectorSecurityGroup" },
+          "CfSshSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
+          "DirectorSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } },
           "LbSecurityGroup": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-LbSecurityGroup" } },
           "WhitelistedCidr": { "Ref": "FullAccessCidr6" }
         },
