@@ -393,11 +393,11 @@
         "Protocol": "HTTPS"
       }
     },
-    "CfSshElbListener80": {
+    "CfSshElbListener2222": {
       "Type": "AWS::ElasticLoadBalancingV2::Listener",
       "Properties": {
         "DefaultActions": [
-          { "Type": "forward", "TargetGroupArn": { "Ref": "CfSshElbTargetGroup22" } }
+          { "Type": "forward", "TargetGroupArn": { "Ref": "CfSshElbTargetGroup2222" } }
         ],
         "LoadBalancerArn": { "Ref": "CfSshElb" },
         "Port": "2222",
