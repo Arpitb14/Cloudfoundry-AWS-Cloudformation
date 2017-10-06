@@ -14,10 +14,10 @@
   },
 
   "Outputs": {
-    "CfSecurityGroup": {
+    "CfSshSecurityGroup": {
       "Description": "Cf Security Group",
-      "Value": { "Ref": "CfSecurityGroup" },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSecurityGroup" } }
+      "Value": { "Ref": "CfSshSecurityGroup" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } }
     },
     "DirectorSecurityGroup": {
       "Description": "Director Security Group",
