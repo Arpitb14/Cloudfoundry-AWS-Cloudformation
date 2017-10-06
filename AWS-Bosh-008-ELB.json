@@ -330,7 +330,7 @@
           { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
         ],
         "LoadBalancerAttributes": [
-          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfElbTimeout" } }
+          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfSshElbTimeout" } }
         ],
         "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } } ],
         "Tags": [
@@ -349,7 +349,7 @@
           { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
         ],
         "LoadBalancerAttributes": [
-          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfElbTimeout" } }
+          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "DirectorElbTimeout" } }
         ],
         "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } } ],
         "Tags": [
