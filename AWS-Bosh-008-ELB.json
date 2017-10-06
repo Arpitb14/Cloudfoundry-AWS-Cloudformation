@@ -39,87 +39,37 @@
       "Description": "Application ELB: Internet facing or internal load balancer",
       "AllowedValues": [ "internet-facing", "internal" ]
     },
-    "DirectorElbHealthCheckTarget": {
-      "Type": "String",
-      "Default": "TCP:22",
-      "Description": "Director ELB health check target",
-      "AllowedPattern": "^((TCP|SSL):[0-9]+|HTTPS?:[0-9]+/.*)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL and port number, eg TCP:22, HTTPS:443"
-    },
-    "DirectorElbProtocol1": {
-      "Type": "String",
-      "Default": "TCP",
-      "Description": "Director ELB Instance Protocol 1",
-      "AllowedPattern": "^(TCP|HTTP|HTTPS|SSL)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL"
-    },
-    "DirectorElbProtocol2": {
-      "Type": "String",
-      "Default": "TCP",
-      "Description": "Director ELB Instance Protocol 2",
-      "AllowedPattern": "^(TCP|HTTP|HTTPS|SSL)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL"
-    },
-    "DirectorElbProtocol3": {
-      "Type": "String",
-      "Default": "TCP",
-      "Description": "Director ELB Instance Protocol 3",
-      "AllowedPattern": "^(TCP|HTTP|HTTPS|SSL)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL"
-    },
-    "DirectorElbInstancePort1": {
+    "CfSshElbTimeout": {
       "Type": "Number",
-      "Default": "22",
-      "Description": "Director ELB Instance Port 1",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "DirectorElbInstancePort2": {
-      "Type": "Number",
-      "Default": "6868",
-      "Description": "Director ELB Instance Port 2",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "DirectorElbInstancePort3": {
-      "Type": "Number",
-      "Default": "25555",
-      "Description": "Director ELB Instance Port 3",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "DirectorElbLoadbalancerPort1": {
-      "Type": "Number",
-      "Default": "22",
-      "Description": "Director ELB Instance Port 1",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "DirectorElbLoadbalancerPort2": {
-      "Type": "Number",
-      "Default": "6868",
-      "Description": "Director ELB Instance Port 2",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "DirectorElbLoadbalancerPort3": {
-      "Type": "Number",
-      "Default": "25555",
-      "Description": "Director ELB Instance Port 3",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "DirectorElbHealthyThreshold": {
-      "Type": "Number",
-      "Default": "4",
-      "Description": "Director ELB Healthy Threshold",
+      "Default": "30",
+      "Description": "CF SSH ELB Timeout",
       "MinValue": "1",
       "MaxValue": "999"
     },
-    "DirectorElbUnhealthyThreshold": {
+    "CfSshElbHealthCheckInternal": {
       "Type": "Number",
-      "Default": "4",
-      "Description": "Director ELB Unhealth Threshold",
+      "Default": "40",
+      "Description": "CF SSH ELB Health Check Interval",
+      "MinValue": "1",
+      "MaxValue": "999"
+    },
+    "CfSshElbHealthCheckTimeout": {
+      "Type": "Number",
+      "Default": "20",
+      "Description": "CF SSH ELB Health Check Timeout",
+      "MinValue": "1",
+      "MaxValue": "999"
+    },
+    "CfSshElbScheme": {
+      "Type": "String",
+      "Default": "internet-facing",
+      "Description": "CF SSH ELB: Internet facing or internal load balancer",
+      "AllowedValues": [ "internet-facing", "internal" ]
+    },
+    "DirectorElbTimeout": {
+      "Type": "Number",
+      "Default": "30",
+      "Description": "Director ELB Timeout",
       "MinValue": "1",
       "MaxValue": "999"
     },
@@ -165,81 +115,6 @@
       "AllowedPattern": "^((([A-Za-z0-9]+[A-Za-z0-9-]?)+[A-Za-z0-9]\\.)+[A-Za-z0-9]{2,})?$",
       "ConstraintDescription": "Must be a valid domain name matching /^(([A-Za-z0-9]+[A-Za-z0-9-]?)+[A-Za-z0-9]\\.)+([A-Za-z0-9]{2,}$/ or empty"
     },
-    "DeployElb": {
-      "Type": "String",
-      "Default": "true",
-      "Description": "Deploy External ELB",
-      "AllowedValues": [ "true", "false" ]
-    },
-    "CfSshElbHealthCheckTarget": {
-      "Type": "String",
-      "Default": "HTTP:2223/",
-      "Description": "Cloudfoundry SSH ELB Health Check Target",
-      "AllowedPattern": "^((TCP|SSL):[0-9]+|HTTPS?:[0-9]+/.*)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL and port number, eg TCP:22, HTTPS:443"
-    },
-    "CfSshElbProtocol": {
-      "Type": "String",
-      "Default": "TCP",
-      "Description": "Cloudfoundry SSH ELB Instance Protocol",
-      "AllowedPattern": "^(TCP|HTTP|HTTPS|SSL)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL"
-    },
-    "CfSshElbInstancePort": {
-      "Type": "Number",
-      "Default": "2222",
-      "Description": "Cloudfoundry SSH ELB Instance Port",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "CfSshElbInstanceProtocol": {
-      "Type": "String",
-      "Default": "TCP",
-      "Description": "Cloudfoundry SSH ELB Instance Protocol",
-      "AllowedPattern": "^(TCP|HTTP|HTTPS|SSL)$",
-      "ConstraintDescription": "HTTPS, HTTP, TCP, SSL"
-    },
-    "CfSshElbLoadbalancerPort": {
-      "Type": "Number",
-      "Default": "2222",
-      "Description": "Cloudfoundry SSH ELB Instance Port",
-      "MinValue": "1",
-      "MaxValue": "65535"
-    },
-    "CfSshElbHealthyThreshold": {
-      "Type": "Number",
-      "Default": "4",
-      "Description": "Cloudfoundry SSH ELB Healthy Threshold",
-      "MinValue": "1",
-      "MaxValue": "999"
-    },
-    "CfSshElbUnhealthyThreshold": {
-      "Type": "Number",
-      "Default": "4",
-      "Description": "Cloudfoundry SSH ELB Unhealth Threshold",
-      "MinValue": "1",
-      "MaxValue": "999"
-    },
-    "CfSshElbHealthCheckInternal": {
-      "Type": "Number",
-      "Default": "40",
-      "Description": "Cloudfoundry SSH ELB Health Check Interval",
-      "MinValue": "1",
-      "MaxValue": "999"
-    },
-    "CfSshElbHealthCheckTimeout": {
-      "Type": "Number",
-      "Default": "20",
-      "Description": "Cloudfoundry SSH ELB Health Check Timeout",
-      "MinValue": "1",
-      "MaxValue": "999"
-    },
-    "CfSshElbScheme": {
-      "Type": "String",
-      "Default": "internet-facing",
-      "Description": "CF SSH ELB: Internet facing or internal load balancer",
-      "AllowedValues": [ "internet-facing", "internal" ]
-    },
 
     "MultiAz": {
       "Type": "String",
@@ -257,67 +132,69 @@
 
   "Outputs": {
     "ApplicationElb": {
-      "Description": "External ELB",
+      "Description": "Application ELB",
       "Condition": "DeployElb",
       "Value": { "Ref": "ApplicationElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElb" } }
     },
     "ApplicationElbDnsName": {
-      "Description": "ELB DNS Name",
+      "Description": "Application ELB DNS Name",
       "Condition": "DeployElb",
       "Value": { "Fn::GetAtt": [ "ApplicationElb","DNSName" ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElbDnsName" } }
     },
     "ApplicationElbTargetGroup80": {
-      "Description": "ELB DNS Name",
+      "Description": "Application ELB Target Group Port 80",
       "Condition": "DeployElb",
       "Value": { "Fn::Select": [ "1", { "Fn::Split": [ "/", { "Fn::GetAtt": [ "ApplicationElbTargetGroup80", "TargetGroupFullName" ] } ] } ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElbTargetGroup80" } }
     },
     "ApplicationElbTargetGroup443": {
-      "Description": "ELB DNS Name",
+      "Description": "Application ELB Target Group Port 443",
       "Condition": "ApplicationSslElb",
       "Value": { "Fn::Select": [ "1", { "Fn::Split": [ "/", { "Fn::GetAtt": [ "ApplicationElbTargetGroup443", "TargetGroupFullName" ] } ] } ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElbTargetGroup443" } }
     },
     "ApplicationElbTargetGroup80Arn": {
-      "Description": "ELB DNS Name",
+      "Description": "Application ELB Target Group Port 80 ARN",
       "Condition": "DeployElb",
       "Value": { "Ref": "ApplicationElbTargetGroup80" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElbTargetGroup80Arn" } }
     },
     "ApplicationElbTargetGroup443Arn": {
-      "Description": "ELB DNS Name",
+      "Description": "Application ELB Target Group Port 443 ARN",
       "Condition": "DeployElb",
       "Value": { "Ref": "ApplicationElbTargetGroup443" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-ApplicationElbTargetGroup443Arn" } }
     },
+
     "CfSshElb": {
-      "Description": "Cloudfoundry SSH External ELB",
+      "Description": "CF SSH ELB",
       "Condition": "DeployElb",
       "Value": { "Ref": "CfSshElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElb" } }
     },
     "CfSshElbDnsName": {
-      "Description": "Cloudfoundry SSH ELB DNS Name",
+      "Description": "CF SSH ELB DNS Name",
       "Condition": "DeployElb",
       "Value": { "Fn::GetAtt": [ "CfSshElb","DNSName" ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbDnsName" } }
     },
-    "CfSshElbSecurityGroup": {
-      "Description": "CF SSH ELB Security Group",
+    "CfSshElbTargetGroup2222": {
+      "Description": "CF SSH ELB Target Group Port 2222",
       "Condition": "DeployElb",
-      "Value": { "Ref": "CfSshElbSecurityGroup" },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbSecurityGroup" } }
+      "Value": { "Fn::Select": [ "1", { "Fn::Split": [ "/", { "Fn::GetAtt": [ "CfSshElbTargetGroup2222", "TargetGroupFullName" ] } ] } ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbTargetGroup2222" } }
     },
-    "CfSshInstanceSecurityGroup": {
-      "Description": "CF SSH Instance Security Group",
+    "CfSshElbTargetGroup2222Arn": {
+      "Description": "CF SSH ELB Target Group Port 2222 ARN",
       "Condition": "DeployElb",
-      "Value": { "Ref": "CfSshInstanceSecurityGroup" },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshInstanceSecurityGroup" } }
+      "Value": { "Ref": "CfSshElbTargetGroup2222" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-CfSshElbTargetGroup2222Arn" } }
     },
+
     "DirectorElb": {
-      "Description": "Director External ELB",
+      "Description": "Director ELB",
       "Condition": "DeployElb",
       "Value": { "Ref": "DirectorElb" },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElb" } }
@@ -328,11 +205,41 @@
       "Value": { "Fn::GetAtt": [ "DirectorElb","DNSName" ] },
       "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbDnsName" } }
     },
-    "DirectorElbSecurityGroup": {
-      "Description": "Director ELB Security Group",
+    "DirectorElbTargetGroup22": {
+      "Description": "Director ELB Target Group Port 22",
       "Condition": "DeployElb",
-      "Value": { "Ref": "DirectorElbSecurityGroup" },
-      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbSecurityGroup" } }
+      "Value": { "Fn::Select": [ "1", { "Fn::Split": [ "/", { "Fn::GetAtt": [ "DirectorElbTargetGroup22", "TargetGroupFullName" ] } ] } ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbTargetGroup22" } }
+    },
+    "DirectorElbTargetGroup6868": {
+      "Description": "Director ELB Target Group Port 6868",
+      "Condition": "DeployElb",
+      "Value": { "Fn::Select": [ "1", { "Fn::Split": [ "/", { "Fn::GetAtt": [ "DirectorElbTargetGroup6868", "TargetGroupFullName" ] } ] } ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbTargetGroup6868" } }
+    },
+    "DirectorElbTargetGroup25555": {
+      "Description": "Director ELB Target Group Port 25555",
+      "Condition": "DeployElb",
+      "Value": { "Fn::Select": [ "1", { "Fn::Split": [ "/", { "Fn::GetAtt": [ "DirectorElbTargetGroup25555", "TargetGroupFullName" ] } ] } ] },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbTargetGroup25555" } }
+    },
+    "DirectorElbTargetGroup22Arn": {
+      "Description": "Director ELB Target Group Port 22 ARN",
+      "Condition": "DeployElb",
+      "Value": { "Ref": "DirectorElbTargetGroup22" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbTargetGroup22Arn" } }
+    },
+    "DirectorElbTargetGroup6868Arn": {
+      "Description": "Director ELB Target Group Port 6868 ARN",
+      "Condition": "DeployElb",
+      "Value": { "Ref": "DirectorElbTargetGroup6868" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbTargetGroup6868Arn" } }
+    },
+    "DirectorElbTargetGroup25555Arn": {
+      "Description": "Director ELB Target Group Port 25555 ARN",
+      "Condition": "DeployElb",
+      "Value": { "Ref": "DirectorElbTargetGroup25555" },
+      "Export": { "Name": { "Fn::Sub": "${DeploymentName}-DirectorElbTargetGroup25555Arn" } }
     }
   },
 
@@ -394,84 +301,6 @@
       }
     },
 
-    "CfSshElb": {
-      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
-      "Condition": "DeployElb",
-      "Properties": {
-        "Subnets": [
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Subnet" } },
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
-        ],
-        "CrossZone": "true",
-        "Listeners": [
-          {
-            "InstancePort": { "Ref": "CfSshElbInstancePort" },
-            "InstanceProtocol": { "Ref": "CfSshElbInstanceProtocol" },
-            "LoadBalancerPort": { "Ref": "CfSshElbLoadbalancerPort" },
-            "Protocol": { "Ref": "CfSshElbProtocol" }
-          }
-        ],
-        "Scheme": { "Ref": "CfSshElbScheme" },
-        "HealthCheck": {
-          "HealthyThreshold": { "Ref": "CfSshElbHealthyThreshold" },
-          "Interval": { "Ref": "CfSshElbHealthCheckInternal" },
-          "Target": { "Ref": "CfSshElbHealthCheckTarget" },
-          "Timeout": { "Ref": "CfSshElbHealthCheckTimeout" },
-          "UnhealthyThreshold": { "Ref": "CfSshElbUnhealthyThreshold" }
-        },
-        "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElb" } },
-          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ],
-        "SecurityGroups": [ { "Ref": "CfSshElbSecurityGroup" } ]
-      }
-    },
-    "DirectorElb": {
-      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
-      "Condition": "DeployElb",
-      "Properties": {
-        "Subnets": [
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Subnet" } },
-          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
-        ],
-        "CrossZone": "true",
-        "Listeners": [
-          {
-            "InstancePort": { "Ref": "DirectorElbInstancePort1" },
-            "InstanceProtocol": "TCP",
-            "LoadBalancerPort": { "Ref": "DirectorElbLoadbalancerPort1" },
-            "Protocol": "TCP"
-          },
-          {
-            "InstancePort": { "Ref": "DirectorElbInstancePort2" },
-            "InstanceProtocol": "TCP",
-            "LoadBalancerPort": { "Ref": "DirectorElbLoadbalancerPort2" },
-            "Protocol": "TCP"
-          },
-          {
-            "InstancePort": { "Ref": "DirectorElbInstancePort3" },
-            "InstanceProtocol": "TCP",
-            "LoadBalancerPort": { "Ref": "DirectorElbLoadbalancerPort3" },
-            "Protocol": "TCP"
-          }
-        ],
-        "Scheme": { "Ref": "DirectorElbScheme" },
-        "HealthCheck": {
-          "HealthyThreshold": { "Ref": "DirectorElbHealthyThreshold" },
-          "Interval": { "Ref": "DirectorElbHealthCheckInternal" },
-          "Target": { "Ref": "DirectorElbHealthCheckTarget" },
-          "Timeout": { "Ref": "DirectorElbHealthCheckTimeout" },
-          "UnhealthyThreshold": { "Ref": "DirectorElbUnhealthyThreshold" }
-        },
-        "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElb" } },
-          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ],
-        "SecurityGroups": [ { "Ref": "DirectorElbSecurityGroup" } ]
-      }
-    },
-
-
     "ApplicationElb": {
       "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
       "Condition": "DeployElb",
@@ -491,6 +320,125 @@
         ]
       }
     },
+    "CfSshElb": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Condition": "DeployElb",
+      "Properties": {
+        "Scheme": { "Ref": "CfSshElbScheme" },
+        "Subnets": [
+          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Subnet" } },
+          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
+        ],
+        "LoadBalancerAttributes": [
+          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfElbTimeout" } }
+        ],
+        "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } } ],
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElb" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
+      }
+    },
+    "DirectorElb": {
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Condition": "DeployElb",
+      "Properties": {
+        "Scheme": { "Ref": "DirectorElbScheme" },
+        "Subnets": [
+          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Subnet" } },
+          { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
+        ],
+        "LoadBalancerAttributes": [
+          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfElbTimeout" } }
+        ],
+        "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DirectorSecurityGroup" } } ],
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElb" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
+      }
+    },
+
+    "ApplicationElbListener80": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          { "Type": "forward", "TargetGroupArn": { "Ref": "ApplicationElbTargetGroup80" } }
+        ],
+        "LoadBalancerArn": { "Ref": "ApplicationElb" },
+        "Port": "80",
+        "Protocol": "HTTP"
+      }
+    },
+    "ApplicationElbListener443": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Condition": "ApplicationSslElb",
+      "Properties": {
+        "Certificates": [
+          {
+            "CertificateArn": {
+              "Fn::If": [
+                "GenerateApplicationSslCertificate",
+                { "Ref": "GeneratedApplicationSslCertificate" },
+                { "Ref": "ExistingApplicationSslCertificate" }
+              ]
+            }
+          }
+        ],
+        "DefaultActions": [
+          { "Type": "forward", "TargetGroupArn": { "Ref": "ApplicationElbTargetGroup443" } }
+        ],
+        "LoadBalancerArn": { "Ref": "ApplicationElb" },
+        "Port": "443",
+        "Protocol": "HTTPS"
+      }
+    },
+    "CfSshElbListener80": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          { "Type": "forward", "TargetGroupArn": { "Ref": "CfSshElbTargetGroup22" } }
+        ],
+        "LoadBalancerArn": { "Ref": "CfSshElb" },
+        "Port": "2222",
+        "Protocol": "TCP"
+      }
+    },
+    "DirectorElbListener22": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          { "Type": "forward", "TargetGroupArn": { "Ref": "DirectorElbTargetGroup22" } }
+        ],
+        "LoadBalancerArn": { "Ref": "DirectorElb" },
+        "Port": "22",
+        "Protocol": "TCP"
+      }
+    },
+    "DirectorElbListener6868": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          { "Type": "forward", "TargetGroupArn": { "Ref": "DirectorElbTargetGroup6868" } }
+        ],
+        "LoadBalancerArn": { "Ref": "DirectorElb" },
+        "Port": "6868",
+        "Protocol": "TCP"
+      }
+    },
+    "DirectorElbListener25555": {
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "Properties": {
+        "DefaultActions": [
+          { "Type": "forward", "TargetGroupArn": { "Ref": "DirectorElbTargetGroup25555" } }
+        ],
+        "LoadBalancerArn": { "Ref": "DirectorElb" },
+        "Port": "25555",
+        "Protocol": "TCP"
+      }
+    },
+
+
 
     "ApplicationElbTargetGroup80": {
       "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
@@ -531,46 +479,81 @@
       }
     },
 
-    "ApplicationElbListener80": {
-      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    "CfSshElbTargetGroup2222": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Condition": "DeployElb",
       "Properties": {
-        "DefaultActions": [
-          {
-            "Type": "forward",
-            "TargetGroupArn": { "Ref": "ApplicationElbTargetGroup80" }
-          }
-        ],
-        "LoadBalancerArn": { "Ref": "ApplicationElb" },
-        "Port": "80",
-        "Protocol": "HTTP"
+        "Port": "2222",
+        "Protocol": "HTTP",
+        "HealthCheckIntervalSeconds": { "Ref": "CfSshElbHealthCheckInternal" },
+        "HealthCheckPath": "/",
+        "HealthCheckPort": "2223",
+        "HealthCheckProtocol": "HTTP",
+        "HealthCheckTimeoutSeconds": { "Ref": "CfSshElbHealthCheckTimeout" },
+        "Targets": [],
+        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElbTargetGroup2222" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
       }
     },
-    "ApplicationElbListener443": {
-      "Type": "AWS::ElasticLoadBalancingV2::Listener",
-      "Condition": "ApplicationSslElb",
+
+    "DirectorElbTargetGroup22": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Condition": "DeployElb",
       "Properties": {
-        "Certificates": [
-          {
-            "CertificateArn": {
-              "Fn::If": [
-                "GenerateApplicationSslCertificate",
-                { "Ref": "GeneratedApplicationSslCertificate" },
-                { "Ref": "ExistingApplicationSslCertificate" }
-              ]
-            }
-          }
-        ],
-        "DefaultActions": [
-          {
-            "Type": "forward",
-            "TargetGroupArn": { "Ref": "ApplicationElbTargetGroup443" }
-          }
-        ],
-        "LoadBalancerArn": { "Ref": "ApplicationElb" },
-        "Port": "443",
-        "Protocol": "HTTPS"
+        "Port": "22",
+        "Protocol": "HTTP",
+        "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
+        "HealthCheckPort": "22",
+        "HealthCheckProtocol": "TCP",
+        "HealthCheckTimeoutSeconds": { "Ref": "DirectorElbHealthCheckTimeout" },
+        "Targets": [],
+        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElbTargetGroup22" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
       }
     },
+    "DirectorElbTargetGroup6868": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Condition": "DeployElb",
+      "Properties": {
+        "Port": "6868",
+        "Protocol": "TCP",
+        "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
+        "HealthCheckPort": "6868",
+        "HealthCheckProtocol": "TCP",
+        "HealthCheckTimeoutSeconds": { "Ref": "DirectorElbHealthCheckTimeout" },
+        "Targets": [],
+        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElbTargetGroup2222" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
+      }
+    },
+    "DirectorElbTargetGroup25555": {
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "Condition": "DeployElb",
+      "Properties": {
+        "Port": "25555",
+        "Protocol": "TCP",
+        "HealthCheckIntervalSeconds": { "Ref": "DirectorElbHealthCheckInternal" },
+        "HealthCheckPort": "25555",
+        "HealthCheckProtocol": "HTTPS",
+        "HealthCheckTimeoutSeconds": { "Ref": "DirectorElbHealthCheckTimeout" },
+        "Targets": [],
+        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
+        "Tags": [
+          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorElbTargetGroup25555" } },
+          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
+        ]
+      }
+    },
+
 
     "CfSshElbSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
