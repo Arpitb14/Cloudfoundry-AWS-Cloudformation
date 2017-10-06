@@ -332,7 +332,7 @@
         "LoadBalancerAttributes": [
           { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfSshElbTimeout" } }
         ],
-        "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } } ],
+        "SecurityGroups": [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshElbSecurityGroup" } } ],
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElb" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
