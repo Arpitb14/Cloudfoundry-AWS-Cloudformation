@@ -43,12 +43,11 @@
       "Type": "Number",
       "Default": "30",
       "Description": "CF SSH ELB Timeout",
-      "MinValue": "1",
-      "MaxValue": "999"
+      "AllowedValues": [ "10","30" ]
     },
     "CfSshElbHealthCheckInternal": {
       "Type": "Number",
-      "Default": "40",
+      "Default": "30",
       "Description": "CF SSH ELB Health Check Interval",
       "MinValue": "1",
       "MaxValue": "999"
@@ -70,12 +69,11 @@
       "Type": "Number",
       "Default": "30",
       "Description": "Director ELB Timeout",
-      "MinValue": "1",
-      "MaxValue": "999"
+      "AllowedValues": [ "10","30" ]
     },
     "DirectorElbHealthCheckInternal": {
       "Type": "Number",
-      "Default": "40",
+      "Default": "30",
       "Description": "Director ELB Health Check Interval",
       "MinValue": "1",
       "MaxValue": "999"
