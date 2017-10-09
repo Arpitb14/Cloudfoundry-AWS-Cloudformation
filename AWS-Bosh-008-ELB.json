@@ -533,30 +533,6 @@
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
         ]
       }
-    },
-
-
-    "CfSshSecurityGroup": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "CF SSH Security Group",
-        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
-        "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshSecurityGroup" } },
-          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ]
-      }
-    },
-    "DirectorSecurityGroup": {
-      "Type": "AWS::EC2::SecurityGroup",
-      "Properties": {
-        "GroupDescription": "Director Security Group",
-        "VpcId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CloudFoundryVpc" } },
-        "Tags": [
-          { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorSecurityGroup" } },
-          { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ] 
-      } 
     }
   }
 }
