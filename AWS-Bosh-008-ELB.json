@@ -39,12 +39,6 @@
       "Description": "Application ELB: Internet facing or internal load balancer",
       "AllowedValues": [ "internet-facing", "internal" ]
     },
-    "CfSshElbTimeout": {
-      "Type": "Number",
-      "Default": "30",
-      "Description": "CF SSH ELB Timeout",
-      "AllowedValues": [ "10","30" ]
-    },
     "CfSshElbHealthCheckInternal": {
       "Type": "Number",
       "Default": "30",
@@ -57,12 +51,6 @@
       "Default": "internet-facing",
       "Description": "CF SSH ELB: Internet facing or internal load balancer",
       "AllowedValues": [ "internet-facing", "internal" ]
-    },
-    "DirectorElbTimeout": {
-      "Type": "Number",
-      "Default": "30",
-      "Description": "Director ELB Timeout",
-      "AllowedValues": [ "10","30" ]
     },
     "DirectorElbHealthCheckInternal": {
       "Type": "Number",
@@ -332,9 +320,6 @@
           { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Subnet" } },
           { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
         ],
-        "LoadBalancerAttributes": [
-          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "CfSshElbTimeout" } }
-        ],
         "Type": "network",
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:CfSshElb" } },
@@ -350,9 +335,6 @@
         "Subnets": [
           { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Subnet" } },
           { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Subnet" } }
-        ],
-        "LoadBalancerAttributes": [
-          { "Key": "idle_timeout.timeout_seconds", "Value": { "Ref": "DirectorElbTimeout" } }
         ],
         "Type": "network",
         "Tags": [
