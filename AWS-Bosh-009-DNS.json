@@ -112,7 +112,7 @@
         "Fn::Join": [
           ".", [
             { "Fn::Sub": "nat-z3.${DeploymentName}" },
-            { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-HostedZone" } }
+            { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DomainName" } }
           ]
         ]
       }
