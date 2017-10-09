@@ -469,7 +469,7 @@
       "Condition": "DeployElb",
       "Properties": {
         "Port": "2222",
-        "Protocol": "HTTP",
+        "Protocol": "TCP",
         "HealthCheckIntervalSeconds": { "Ref": "CfSshElbHealthCheckInternal" },
         "HealthCheckPath": "/",
         "HealthCheckPort": "2223",
