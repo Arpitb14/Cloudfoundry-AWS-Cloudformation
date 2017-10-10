@@ -360,10 +360,10 @@
                   ],
                   "Effect": "Allow",
                   "Resource": [
-                    { "Ref": "BlobstoreBackupBucketAccessRole" },
-                    { "Ref": "BlobstoreBucketAccessRole" },
-                    { "Ref": "CcBucketAccessRole" },
-                    { "Ref": "CompileNodesBucketAccessRole" }
+                    { "Fn::GetAtt": [ "BlobstoreBackupBucketAccessRole", "Arn" ] },
+                    { "Fn::GetAtt": [ "BlobstoreBucketAccessRole", "Arn" ] },
+                    { "Fn::GetAtt": [ "CcBucketAccessRole", "Arn" ] },
+                    { "Fn::GetAtt": [ "CompileNodesBucketAccessRole", "Arn" ] }
                   ]
                 },
                 {
