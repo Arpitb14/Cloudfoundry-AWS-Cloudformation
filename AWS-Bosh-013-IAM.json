@@ -504,7 +504,7 @@
         "UserName": { "Ref": "BoshAwsUser" }
       }
     },
-    "BoshAwsAccessKey": {
+    "SmtpAwsAccessKey": {
       "Type": "AWS::IAM::AccessKey",
       "Properties": {
         "UserName": { "Ref": "SmtpAwsUser" }
