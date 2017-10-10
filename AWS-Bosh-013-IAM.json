@@ -35,6 +35,14 @@
       "Description": "Director Instance Profile",
       "Value": { "Ref": "DirectorInstanceProfile" }
     },
+    "BoshAwsAccessKeyId": {
+      "Description": "Bosh Access Key Id",
+      "Value": { "Ref": "BoshAwsAccessKey" }
+    },
+    "BoshAwsSecretAccessKey": {
+      "Description": "Bosh Broker Access Key",
+      "Value": { "Fn::GetAtt": [ "BoshAwsAccessKey", "SecretAccessKey" ] }
+    },
     "SmtpAwsAccessKeyId": {
       "Description": "SMTP Access Key Id",
       "Value": { "Ref": "SmtpAwsAccessKey" }
@@ -262,7 +270,7 @@
         ] 
       } 
     },
-
+        
 
     "DirectorRole": {
       "Type": "AWS::IAM::Role",
@@ -274,8 +282,7 @@
               "Effect": "Allow",
               "Principal": {
                 "Service": [ "ec2.amazonaws.com" ]
-              },
-              "Action": [ "sts:AssumeRole" ]
+              }
             }
           ]
         },
@@ -401,7 +408,13 @@
         ]
       }
     },
-    
+
+    "BoshAwsUser": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" }
+      }
+    },
     "SmtpAwsUser": {
       "Type": "AWS::IAM::User",
       "Properties": {
@@ -429,6 +442,15 @@
               ]
             }
           }
+        ]
+      }
+    },
+
+    "BoshRolePolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "Users": [
+          { "Ref": "BoshAwsUser" }
         ]
       }
     },
@@ -476,7 +498,13 @@
       }
     },
 
-    "SmtpAwsAccessKey": {
+    "BoshAwsAccessKey": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": {
+        "UserName": { "Ref": "BoshAwsUser" }
+      }
+    },
+    "BoshAwsAccessKey": {
       "Type": "AWS::IAM::AccessKey",
       "Properties": {
         "UserName": { "Ref": "SmtpAwsUser" }
