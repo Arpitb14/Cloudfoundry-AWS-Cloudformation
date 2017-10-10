@@ -297,6 +297,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" }
       }
     },
+
     "SmtpAwsUser": {
       "Type": "AWS::IAM::User",
       "Properties": {
@@ -328,7 +329,7 @@
       }
     },
 
-    "BoshDirectorRolePolicy": {
+    "BoshDirectorPolicy": {
       "Type": "AWS::IAM::Policy",
       "Properties": {
         "Users": [
