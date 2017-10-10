@@ -287,9 +287,6 @@
             }
           ]
         },
-        "ManagedPolicyArns": [
-          { "Fn::GetAtt": [ "BoshDirectorPolicy", "Arn" ] }
-        ],
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" }
       }
     },
@@ -297,10 +294,7 @@
     "BoshAwsUser": {
       "Type": "AWS::IAM::User",
       "Properties": {
-        "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
-        "ManagedPolicyArns": [
-          { "Fn::GetAtt": [ "BoshDirectorPolicy", "Arn" ] }
-        ]
+        "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" }
       }
     },
 
@@ -336,9 +330,14 @@
     },
 
     "BoshDirectorPolicy": {
-      "Type": "AWS::IAM::Policy",
+      "Type": "AWS::IAM::ManagedPolicy",
       "Properties": {
-        "PolicyName": { "Fn::Sub": "${DeploymentName}-DirectorPolicies" },
+        "Users": [
+          { "Ref": "BoshAwsUser" }
+        ],
+        "Roles": [
+          { "Ref": "DirectorRole" }
+        ],
         "PolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
