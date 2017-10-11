@@ -371,7 +371,7 @@
             {
               "Action": [
                 "elasticloadbalancing:AddTags",
-                "elasticloadbalancing:ModifyLoadBalancerAttributes:",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes",
                 "elasticloadbalancing:RemoveTags"
               ],
               "Effect": "Allow",
