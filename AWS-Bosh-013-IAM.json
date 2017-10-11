@@ -419,7 +419,7 @@
                 "events:*"
               ],
               "Effect": "Allow",
-              "Resource": "Fn::Sub": "arn:aws:events:*:*:*"
+              "Resource": "arn:aws:events:*:*:*"
             },
             {
               "Action": [
