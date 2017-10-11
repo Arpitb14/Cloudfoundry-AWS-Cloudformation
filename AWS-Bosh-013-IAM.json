@@ -72,7 +72,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
         "Policies": [
           {
-            "PolicyName": "BlobstoreBackupBucketAccess",
+            "PolicyName": { "Fn::Sub": "${DeploymentName}-BlobstoreBackupBucketAccess" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -128,7 +128,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
         "Policies": [
           {
-            "PolicyName": "BlobstoreBucketAccess",
+            "PolicyName": { "Fn::Sub": "${DeploymentName}-BlobstoreBucketAccess" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -174,7 +174,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
         "Policies": [
           {
-            "PolicyName": "CcBucketAccess",
+            "PolicyName": { "Fn::Sub": "${DeploymentName}-CcBucketAccess" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -235,7 +235,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
         "Policies": [
           {
-            "PolicyName": "CompileNodesBucketAccess",
+            "PolicyName": { "Fn::Sub": "${DeploymentName}-CompileNodesBucketAccess" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -297,7 +297,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
         "Policies": [
           {
-            "PolicyName": "CompileNodesBucketAccess",
+            "PolicyName": { "Fn::Sub": "${DeploymentName}-DirectorPassRolePolicy" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
@@ -321,7 +321,7 @@
         "Path": { "Fn::Sub": "/Cloudfoundry/Cloudformation/${DeploymentName}/" },
         "Policies": [
           {
-            "PolicyName": { "Fn::Sub": "${DeploymentName}-CfSmtpPolicy" },
+            "PolicyName": { "Fn::Sub": "${DeploymentName}-SmtpAwsUserPolicy" },
             "PolicyDocument": {
               "Version": "2012-10-17",
               "Statement": [
