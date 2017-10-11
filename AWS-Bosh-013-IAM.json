@@ -95,8 +95,7 @@
                     "s3:DeleteObjectVersion",
                     "s3:GetObject",
                     "s3:GetObjectVersion",
-                    "s3:PutObject",
-                    "s3:PutObjectVersion"
+                    "s3:PutObject"
                   ],
                   "Resource": [
                     { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BackupBucketArn" } }, "/*" ] ] },
@@ -145,8 +144,7 @@
                   "Action": [
                     "s3:GetObject",
                     "s3:GetObjectVersion",
-                    "s3:PutObject",
-                    "s3:PutObjectVersion"
+                    "s3:PutObject"
                   ],
                   "Resource": { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BlobstoreBucketArn" } }, "/*" ] ] }
                 }
@@ -200,8 +198,7 @@
                     "s3:DeleteObjectVersion",
                     "s3:GetObject",
                     "s3:GetObjectVersion",
-                    "s3:PutObject",
-                    "s3:PutObjectVersion"
+                    "s3:PutObject"
                   ],
                   "Resource": [
                     { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BlobstoreBucketArn" } }, "/*" ] ] },
@@ -256,8 +253,7 @@
                   "Action": [
                     "s3:GetObject",
                     "s3:GetObjectVersion",
-                    "s3:PutObject",
-                    "s3:PutObjectVersion"
+                    "s3:PutObject"
                   ],
                   "Resource": [
                     { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BlobstoreBucketArn" } }, "/*" ] ] },
@@ -374,7 +370,9 @@
             },
             {
               "Action": [
-                "elasticloadbalancing:*"
+                "elasticloadbalancing:AddTags",
+                "elasticloadbalancing:ModifyLoadBalancerAttributes:",
+                "elasticloadbalancing:RemoveTags"
               ],
               "Effect": "Allow",
               "Resource": [
@@ -391,13 +389,33 @@
             },
             {
               "Action": [
+                "elasticloadbalancing:CreateListener",
+                "elasticloadbalancing:CreateRule",
+                "elasticloadbalancing:CreateTargetGroup",
+                "elasticloadbalancing:DeleteListener",
+                "elasticloadbalancing:DeleteRule",
+                "elasticloadbalancing:DeleteTargetGroup",
+                "elasticloadbalancing:DeregisterTargets",
                 "elasticloadbalancing:DescribeInstanceHealth",
+                "elasticloadbalancing:DescribeListeners",
                 "elasticloadbalancing:DescribeLoadBalancerAttributes",
                 "elasticloadbalancing:DescribeLoadBalancerPolicyTypes",
                 "elasticloadbalancing:DescribeLoadBalancers",
                 "elasticloadbalancing:DescribeLoadBalancerPolicies",
+                "elasticloadbalancing:DescribeRules",
+                "elasticloadbalancing:DescribeSSLPolicies",
                 "elasticloadbalancing:DescribeTargetGroups",
-                "elasticloadbalancing:DescribeTags"
+                "elasticloadbalancing:DescribeTargetGroupAttributes",
+                "elasticloadbalancing:DescribeTargetHealth",
+                "elasticloadbalancing:DescribeTags",
+                "elasticloadbalancing:ModifyListener",
+                "elasticloadbalancing:ModifyRule",
+                "elasticloadbalancing:ModifyTargetGroup",
+                "elasticloadbalancing:ModifyTargetGroupAttributes",
+                "elasticloadbalancing:RegisterTargets",
+                "elasticloadbalancing:SetIpAddressType",
+                "elasticloadbalancing:SetRulePriorities",
+                "elasticloadbalancing:SetSubnets"
               ],
               "Effect": "Allow",
               "Resource": "*"
@@ -458,8 +476,7 @@
                 "s3:DeleteObjectVersion",
                 "s3:GetObject",
                 "s3:GetObjectVersion",
-                "s3:PutObject",
-                "s3:PutObjectVersion"
+                "s3:PutObject"
               ],
               "Resource": [
                 { "Fn::Join": [ "", [ { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-BlobstoreBucketArn" } }, "/*" ] ] },
