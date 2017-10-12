@@ -184,22 +184,22 @@
       }
     },
 
-    "DmzAz1ToPrivatePort2222": {
+    "DmzAz1ToCfSshSecurityGroupPort2222": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Condition": "DeployElb",
       "Properties": {
-        "GroupId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-PrivateSecurityGroup" } },
+        "GroupId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
         "CidrIp": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz1Cidr" } },
         "FromPort": "2222",
         "ToPort": "2222" ,
         "IpProtocol": "tcp"
       }
     },
-    "DmzAz2ToPrivatePort2222": {
+    "DmzAz2ToCfSshSecurityGroupPort2222": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Condition": "DeployElb",
       "Properties": {
-        "GroupId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-PrivateSecurityGroup" } },
+        "GroupId": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-CfSshSecurityGroup" } },
         "CidrIp": { "Fn::ImportValue": { "Fn::Sub": "${DeploymentName}-DmzAz2Cidr" } },
         "FromPort": "2222",
         "ToPort": "2222" ,

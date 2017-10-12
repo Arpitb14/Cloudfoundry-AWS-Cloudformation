@@ -73,8 +73,8 @@
         "Tags": [
           { "Key": "Name", "Value": { "Fn::Sub": "${DeploymentName}:DirectorSecurityGroup" } },
           { "Key": "deployment", "Value": { "Ref": "DeploymentName" } }
-        ] 
-      } 
+        ]
+      }
     },
     "DmzSecurityGroup": {
       "Type": "AWS::EC2::SecurityGroup",
